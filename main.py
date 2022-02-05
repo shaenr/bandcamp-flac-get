@@ -85,6 +85,8 @@ def handle_name_price(w):
 
 
 def get_album(d, album_url, wait_time):
+    global SKIP_SWITCH
+    SKIP_SWITCH = False
     wait = WebDriverWait(d, wait_time)
     d.get(album_url)
 
