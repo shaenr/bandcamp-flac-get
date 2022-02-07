@@ -9,11 +9,19 @@ from webdriver_manager.utils import ChromeType
 from pathlib import Path
 import os
 import wget
+from fake_useragent import UserAgent
+import sys
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # CONFIG
-CHROME_BINARY = "/snap/bin/chromium"          # You will need to use the path to Chrome here.
-DOWNLOAD_PATH = Path.home()
+CHROME_BINARY = os.environ["CHROME_BINARY"]
+DOWNLOAD_PATH = Path(os.environ["DOWNLOAD_PATH"])
+if not DOWNLOAD_PATH.exists():
+    sys.exit()
 ALBUM_LINKS_TXT = Path('./album_links.txt')
+TIMEOUT_TIME = 1000000000
 
 # CONSTANTS
 XPATH_FREE_DOWNLOAD = '//*[@id="trackInfoInner"]/ul/li[1]/div/h4/button'
@@ -24,6 +32,7 @@ XPATH_NAME_PRICE_DOWNLOAD = '//*[@id="downloadButtons_download"]/div/button'
 XPATH_FORMAT_DROPDOWN = '//*[@id="post-checkout-info"]/div[1]/div[2]/div[4]/div[3]/span'
 XPATH_FLAC_SELECT = '//*[@id="post-checkout-info"]/div[1]/div[2]/div[4]/div[4]/ul/li[3]/span[2]'
 XPATH_DOWNLOAD_ANCHOR = '//*[@id="post-checkout-info"]/div[1]/div[2]/div[4]/span/a'
+XPATH_ERROR_PREPARING = '//*[@id="post-checkout-info"]/div[1]/div[2]/div[4]/div[2]/div[3]/div[2]/a'
 
 SKIP_SWITCH = False  # I wish I had a more elegant solution than this but fuck it.
 
@@ -37,8 +46,11 @@ def get_driver(binary_location: str):
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--test-type')
     options.add_argument("--disable-notifications")
-    options.add_argument("--remote-debugging-port=9225");
+    options.add_argument("--remote-debugging-port=9225")
+    options.add_argument("window-size=1400,600")
+    options.add_argument(f"user-agent={UserAgent().random}")
     options.binary_location = binary_location
+    options.add_experimental_option("detach", True)
     service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
     return webdriver.Chrome(service=service, options=options)
 
@@ -102,9 +114,10 @@ def download_zip_file(url):
 def get_albums():
     albums_to_get = get_album_links_from_file()
     with get_driver(CHROME_BINARY) as driver:
-        download_urls = [get_album(driver, album, 5) for album in albums_to_get]
+        download_urls = [get_album(driver, album, TIMEOUT_TIME) for album in albums_to_get]
 
     for download in download_urls:
+        print(download)
         if not download == '':
             download_zip_file(download)
 
