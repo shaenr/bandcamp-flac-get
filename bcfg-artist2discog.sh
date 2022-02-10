@@ -19,8 +19,9 @@ base=$(echo $base | sed -e "s/\/music$//")
 echo "Writing album links to file..."
 for url in $urls; do
 #   echo "Downloading $(echo $url | sed -e "s/^\/album\///g") album..."
-  echo $base$url >> album_links.txt
-  if [ $? -ne 0 ]; then
+  echo "$base$url" >> album_links.txt
+  # shellcheck disable=SC2181
+  if [ "$?" -ne 0 ]; then
     echo "Are you sure that $base$url is a valid album url?"
     exit
   fi
