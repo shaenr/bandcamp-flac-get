@@ -149,7 +149,7 @@ common sample rate among them to use and convert the smallest amount of files to
 Using that single flac file, an mkv video is generated using the cover art for the visual. The remaining files
 left over after the process are then removed.
 - [bcfg-artist2discog.sh](https://github.com/shaenr/bandcamp-flac-get/blob/main/bcfg-artist2discog.sh) -- This script is much simpler. Basically you just pass it an artist link; in the command console, like this: `bash bcfg-artist2discog.sh windows96.bandcamp.com`". If you do it right, it will add every album the artist has uploaded to their BandCamp page to your `album_links.txt`
-- The other files are utility functions used in the otehr bash scripts.
+- The other files are utility functions used in the other bash scripts.
 
 # GNU General Public License v3.0
 
