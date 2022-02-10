@@ -21,17 +21,15 @@
 ##############################################################################################
 
 # LOCAL FUNCTIONS
-
 function cleanup() {
-# $MY_TMP_DIR is a temporary dir created by my script 
-# based on the user's specified download directory. See the .env file.
+# $MY_TMP_DIR is a temporary dir created by my script
   [[ "$MY_TMP_DIR" != '' ]] || error "Unable to find $MY_TMP_DIR" 2
 
   shopt -s nullglob
   TO_CLEAN+=( "$MY_TMP_DIR"/*.flac )
   shopt -u nullglob
 
-  rm -f "${TO_CLEAN[@]}"                      # I don't know why this doesn't empty the directory...
+#  rm -f "${TO_CLEAN[@]}"                      # I don't know why this doesn't empty the directory...
 #  rmdir "$MY_TMP_DIR" || ls "$MY_TMP_DIR"
   rm -rf "$MY_TMP_DIR"                        # ...But I guess this will.
 
@@ -55,9 +53,7 @@ function get-common-element() {
 function stabilize-bitrate() {
   local OLD_FLACS=( "$MY_TMP_DIR"/*.flac )
 
-  shopt -s nullglob
   declare -A SAMPLE_RATES=( )
-  shopt -u nullglob
 
   # Get the Sample Rates for each flac.
   for i in "${OLD_FLACS[@]}"; do
@@ -78,8 +74,8 @@ function stabilize-bitrate() {
       NEW_FILE_PATH="$FILE_AS_KEY-$MOST_COMMON_ELEMENT.flac"
 
       sox "$FILE_AS_KEY" -r "$MOST_COMMON_ELEMENT" "$NEW_FILE_PATH"
-      sox --i -r "$NEW_FILE_PATH"
-      sox "$FILE_AS_KEY" -r 48000 "$NEW_FILE_PATH"
+#      sox --i -r "$NEW_FILE_PATH"
+#      sox "$FILE_AS_KEY" -r 48000 "$NEW_FILE_PATH"
       [[ -f "$NEW_FILE_PATH" ]] && {
         echo "Made new file, removing old file";
         rm "$FILE_AS_KEY";

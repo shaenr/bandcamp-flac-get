@@ -81,7 +81,7 @@ Three links here demonstrate three different things the script handles.
 
 The program will work perfectly on the first two and will simply skip any album that it cannot get for free.
 
-I recommend that you support artist where you can regardless as they are often not asking for very much on sites 
+I recommend that you support artists where you can regardless as they are often not asking for very much on sites 
 like BandCamp. If you are looking for a 
 tool that allows you to batch download flacs for albums *you have* paid for and that are not *specifically free*, 
 you might be interested in [bandcamp-collection-downloader](https://github.com/Ezwen/bandcamp-collection-downloader)
