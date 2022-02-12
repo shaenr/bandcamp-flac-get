@@ -88,7 +88,7 @@ you might be interested in [bandcamp-collection-downloader](https://github.com/E
 
 # Finally! Try It Out
 
-Once those two/three things are done, all you need to do is: `python3 main.py` from the project directory. If everything is done right, it should just start doing it for you.
+Once those two/three things are done, all you need to do is: `python3 bcfg/__init__.py` from the project directory. If everything is done right, it should just start doing it for you.
 I recommend watching the program run and not doing an absurd amount of downloads at once in one job. The most I have tested at one time is about 25-35.
 
 ## FAQ
@@ -101,7 +101,7 @@ Do it as many times as you need to. It's reacting to you hitting the servers rep
 so just stop for a second. Just wait and watch the program where it says, "Having trouble processing, Try Again."
 
 In the background, the script is waiting for the download link to appear. But it's not impatient. The 
-default `TIMEOUT_TIME` found in `main.py` is `1000000000` seconds, so it isn't going to error out on you. 
+default `TIMEOUT_TIME` found in `bcfg/__init__.py` is `1000000000` seconds, so it isn't going to error out on you. 
 You can also change this if you would like to
 
 In my testing, there was never more than a couple of minutes at most required. I only ever saw this happen as a result 
@@ -132,7 +132,8 @@ make it easier for you in that event.
 They're small utilities in a language called bash that you might find useful if you're a complete nerd, but 
 they have nothing to do with the scraping and downloading of albums exactly.
 
-Those are not directly used by the python3 script, which does all the work of scraping and downloading, and as of this time is entirely contained in `main.py`.
+Those are not directly used by the python3 script, which does all the work of scraping and downloading, and as of this time is entirely contained in `bcfg/__init__.py`.
+There is a `main.py` file but as of this commit, it is just a caller of the bcfg package.
 
 They're mainly used for either pre-processing HTML pages to generate album links or post-processing 
 to do something with the flac file zips after they're downloaded.

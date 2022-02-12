@@ -1,3 +1,4 @@
+ 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
@@ -121,7 +122,3 @@ def get_albums():
         if not download == '':
             download_zip_file(download)
 
-
-if __name__ == '__main__':
-    get_albums()
-    print("Done!")
