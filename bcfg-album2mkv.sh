@@ -22,15 +22,15 @@
 
 # LOCAL FUNCTIONS
 function cleanup() {
-# $MY_TMP_DIR is a temporary dir created by my script
+$MY_TMP_DIR is a temporary dir created by my script
   [[ "$MY_TMP_DIR" != '' ]] || error "Unable to find $MY_TMP_DIR" 2
 
   shopt -s nullglob
   TO_CLEAN+=( "$MY_TMP_DIR"/*.flac )
   shopt -u nullglob
 
-#  rm -f "${TO_CLEAN[@]}"                      # I don't know why this doesn't empty the directory...
-#  rmdir "$MY_TMP_DIR" || ls "$MY_TMP_DIR"
+ rm -rf "${TO_CLEAN[@]}"                      # I don't know why this doesn't empty the directory...
+ rmdir "$MY_TMP_DIR" || ls "$MY_TMP_DIR"
   rm -rf "$MY_TMP_DIR"                        # ...But I guess this will.
 
   [[ ! -d "$MY_TMP_DIR" ]] && echo "Cleaned up unnecessary files in /tmp directories."
@@ -92,7 +92,9 @@ function do-ffmpeg() {
            -i "$COVER_JPG" -i "$OUTPUT_FLAC" \
            -c:v libx264 -preset medium -tune stillimage -crf 18 \
            -c:a copy -shortest -pix_fmt yuv420p \
-           "$OUTPUT_MKV"
+           -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" "$OUTPUT_MKV"
+           
+#            -vcodec libx264 -y -an
   else
     error "Unable to find cover album art" 2
   fi
@@ -121,7 +123,7 @@ function debug() {
   echo "SAMPLE_RATES=" "${SAMPLE_RATES[@]}"
   echo "OLD_FLACS=" "${OLD_FLACS[@]}"
   for i in "$MY_TMP_DIR"/*.flac; do sox --i -r "$i"; echo "$i"; echo; done
-  ls -l "$MY_TMP_DIR"
+#   ls -l "$MY_TMP_DIR"
 }
 
 ##############################################################################################
@@ -140,6 +142,7 @@ COVER_JPG="$MY_TMP_DIR/cover.jpg"
 sanity-checks
 
 unzip -j "$1" -d "$MY_TMP_DIR" || error "Unable to run the unzip command" 2
+
 
 [[ -f "$COVER_JPG" ]] || COVER_JPG="$MY_TMP_DIR/cover.png"
 [[ -f "$COVER_JPG" ]] || error "Can't find cover album art." 2
