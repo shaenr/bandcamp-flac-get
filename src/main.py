@@ -1,5 +1,4 @@
-from bcfg import get_albums
+from bcfg import bcfg
 
-if __name__ == '__main__':
-    get_albums()
-    print("Done!")
+if __name__ == "__main__":
+    bcfg()

@@ -8,7 +8,6 @@ import json
 
 script, *args = argv
 
-
 XP_ARTIST_NAME = '//*[@id="band-name-location"]/span[1]'
 XP_LOCATION = '//*[@id="band-name-location"]/span[2]'
 XP_ARTIST_BIO_TEXT = '//*[@id="bio-text"]'
@@ -32,20 +31,17 @@ def simple_parse_url(args):
         return args[0]
     else:
         print("Are you sure that you passed a bandcamp url to the script as arg?")
+        print(args)
         exit(1)
-
-
-def randomize_ua():
-    return UserAgent().random
 
 
 def get_headers():
     return {
-        "User-Agent": randomize_ua(),
+        "User-Agent": UserAgent().random,
         "Accept-Language": "en-gb",
         "Accept-Encoding": "br,gzip,deflate",
         "Accept": "test/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Referer": "http://www.google.com"
+        "Referer": "http://www.google.com",
     }
 
 
@@ -57,9 +53,7 @@ def get_response(url: str):
 
 
 def init_soup(parser: str = "html.parser"):
-    page = get_response(
-        simple_parse_url(args)
-    )
+    page = get_response(simple_parse_url(args))
     return BeautifulSoup(page.content, parser)
 
 
@@ -71,17 +65,16 @@ data = {
     "ARTIST": dom.xpath(XP_ARTIST_NAME)[0].text,
     "LOCATION": dom.xpath(XP_LOCATION)[0].text,
     "ARTIST_BIO_TEXT": dom.xpath(XP_ARTIST_BIO_TEXT)[0].text,
-    "ARTIST_AVATAR": dom.xpath(XP_ARTIST_AVATAR)[0].get('src'),
+    "ARTIST_AVATAR": dom.xpath(XP_ARTIST_AVATAR)[0].get("src"),
     "ALBUM_NAME": dom.xpath(XP_ALBUM_NAME)[0].text,
     "DATE_UPLOADED": dom.xpath(XP_DATE_UPLOADED)[0],
     "LICENSE": dom.xpath(XP_LICENSE)[0].text,
 }
 
-data = {k: v.strip()
-        for k, v in data.items()}
+data = {k: v.strip() for k, v in data.items()}
 
-tracks = soup.find_all('span', {'class': 'track-title'})
-times = soup.find_all('span', {'class': ['time', 'secondaryText']})
+tracks = soup.find_all("span", {"class": "track-title"})
+times = soup.find_all("span", {"class": ["time", "secondaryText"]})
 
 for i, t in enumerate(times):
     time = t.text.strip()
@@ -89,33 +82,29 @@ for i, t in enumerate(times):
         times.remove(t)
 
 trackList = [
-    (track.text.strip(),
-     time.text.strip())
-    for track, time in zip(tracks, times)
+    (track.text.strip(), time.text.strip()) for track, time in zip(tracks, times)
 ]
 
 
-trackData = {'tracks': []}
+trackData = {"tracks": []}
 
 for track, time in trackList:
-    trackEntry = {
-        "track": track,
-        "time": time
-    }
-    trackData['tracks'].append(trackEntry)
+    trackEntry = {"track": track, "time": time}
+    trackData["tracks"].append(trackEntry)
 
-data['tracks'] = trackData
+data["tracks"] = trackData
+
+
+def serialize_json_file(data: dict, path_obj: Path, mode: str = "w"):
+    with path_obj.open(mode) as write_obj:
+        json.dump(data, write_obj, indent=4)
+
 
 def write_to_file(p, d):
     out_file = Path(p)
-    with out_file.open('w') as fo:
+    with out_file.open("w") as fo:
         json.dump(d, fo)
-    return out_file.resolve()
 
 
-base_dir = '/media/shaen/Home/zips'
-write_to_file(
-    f"{base_dir}/{data['ARTIST']}-{data['ALBUM_NAME']}.json",
-    data
-)
-
+base_dir = "/media/$USER/Home/zips"
+write_to_file(f"{base_dir}/{data['ARTIST']}-{data['ALBUM_NAME']}.json", data)
