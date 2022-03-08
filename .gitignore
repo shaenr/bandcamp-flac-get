@@ -131,3 +131,4 @@ dmypy.json
 
 .idea/
 zips/*
+./src/geckodriver.log
