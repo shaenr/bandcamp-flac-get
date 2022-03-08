@@ -18,11 +18,14 @@
 
 # NOTES:
 #   If you do not have a downloads directory specified in the project's .env file, the program will use $HOME.
+#
+# ALSO THIS ONLY WORKS WITH FLAC ZIPS FOR NOW
 ##############################################################################################
 
 # LOCAL FUNCTIONS
 function cleanup() {
-$MY_TMP_DIR is a temporary dir created by my script
+#$MY_TMP_DIR is a temporary dir created by my script
+  DOWNLOAD_PATH="$(cat "./utils/bcfg-download_path.txt")"
   [[ "$MY_TMP_DIR" != '' ]] || error "Unable to find $MY_TMP_DIR" 2
 
   shopt -s nullglob
@@ -32,6 +35,7 @@ $MY_TMP_DIR is a temporary dir created by my script
  rm -rf "${TO_CLEAN[@]}"                      # I don't know why this doesn't empty the directory...
  rmdir "$MY_TMP_DIR" || ls "$MY_TMP_DIR"
   rm -rf "$MY_TMP_DIR"                        # ...But I guess this will.
+  rm "$OUTPUT_FLAC"
 
   [[ ! -d "$MY_TMP_DIR" ]] && echo "Cleaned up unnecessary files in /tmp directories."
 }
@@ -129,9 +133,10 @@ function debug() {
 ##############################################################################################
 
 # MAIN
+DOWNLOAD_PATH="$(cat "./utils/bcfg-download_path.txt")"
 source "./bcfg-common.sh" || error "Can't find my bcfg-common.sh; Try executing from the bcfg project directory." 2
-source "./install_linux.sh" || error "Can't find my install_linux.sh; Try executing from the bcfg project directory." 2
-loadenv
+#source "./install_linux.sh" || error "Can't find my install_linux.sh; Try executing from the bcfg project directory." 2
+
 
 TO_CLEAN=( )
 MY_TMP_DIR="$(mktemp -d)"
@@ -153,3 +158,4 @@ cleanup
 
 echo "Your mkv file is ready here:"
 echo "$OUTPUT_MKV"
+
