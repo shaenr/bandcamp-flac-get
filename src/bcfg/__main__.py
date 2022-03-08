@@ -1,6 +1,6 @@
 from . import settings
-if settings.DEBUG:
-    from . import settings_example as settings
+# if settings.DEBUG:
+#     from . import settings_example as settings
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
@@ -30,8 +30,6 @@ DOWNLOAD_PATH = Path(settings.DOWNLOAD_PATH)
 ALBUM_LINKS_TXT = Path(settings.ALBUM_LINKS_TXT)
 TIMEOUT_TIME = settings.TIMEOUT_TIME
 SKIP_SWITCH = False  # I wish I had a more elegant solution than this but fuck it.
-
-print(ALBUM_LINKS_TXT.resolve())
 
 
 def sanity_check():
@@ -229,7 +227,11 @@ def get_albums():
 
 def bcfg():
     sanity_check()
-    get_albums()
+    try:
+        get_albums()
+    except IsADirectoryError as exc:
+        print("You need to open this file and configure paths and options before you run the program:")
+        print(Path("src/bcfg/settings.py").resolve())
 
 
 if __name__ == "__main__":
