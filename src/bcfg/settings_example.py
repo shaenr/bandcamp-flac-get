@@ -19,7 +19,7 @@ OPERA_BINARY = ""
 ALBUM_LINKS_TXT = "/home/shaen/bandcamp-flac-get/album_links.txt"
 
 # Format options are "mp3" "mp3-vo" "mp3-320" "flac" "vorbis"
-FORMAT = "mp3-vo"
+FORMAT = "flac"
 
 # When bandcamp can't respond fast enough, how long should the browser wait before giving up?
 TIMEOUT_TIME = 1000000000
