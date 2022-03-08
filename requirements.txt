@@ -7,11 +7,13 @@ colorama==0.4.4
 configparser==5.2.0
 crayons==0.4.0
 cryptography==36.0.1
+fake-useragent==0.1.11
 h11==0.13.0
 idna==3.3
 outcome==1.1.0
 pycparser==2.21
 pyOpenSSL==22.0.0
+python-dotenv==0.19.2
 requests==2.27.1
 selenium==4.1.0
 sniffio==1.2.0
@@ -22,3 +24,6 @@ urllib3==1.26.8
 webdriver-manager==3.5.2
 wget==3.2
 wsproto==1.0.0
+bs4~=0.0.1
+beautifulsoup4~=4.10.0
+lxml~=4.8.0
