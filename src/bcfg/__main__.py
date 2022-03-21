@@ -1,6 +1,7 @@
 from . import settings
 # if settings.DEBUG:
 #     from . import settings_example as settings
+from argparse import Namespace
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
@@ -225,7 +226,17 @@ def get_albums():
             download_zip_file(download)
 
 
-def bcfg():
+def bcfg(argv: Namespace):
+    if argv.chrome:
+        settings.BROWSER = "chrome"
+        settings.CHROME_BINARY = Path(argv.chrome)
+    if argv.chromium:
+        settings.BROWSER = "chromium"
+        settings.CHROMIUM_BINARY = Path(argv.chromium)
+    settings.TIMEOUT_TIME = argv.timeout if argv.timeout else settings.TIMEOUT_TIME
+    settings.ALBUM_LINKS_TXT = argv.input if argv.input else settings.ALBUM_LINKS_TXT
+    settings.FORMAT = argv.format if argv.format else settings.FORMAT
+    settings.DOWNLOAD_PATH = settings.DOWNLOAD_PATH
     sanity_check()
     try:
         get_albums()
@@ -235,4 +246,5 @@ def bcfg():
 
 
 if __name__ == "__main__":
-    bcfg()
+    # bcfg()
+    pass
