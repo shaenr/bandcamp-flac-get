@@ -40,7 +40,7 @@ You have to tell the program where the browser binary is, what browser you're us
 You can type this to begin setting it up in your terminal...
 
 ```bash
-bash ./SETUP.sh
+bash ./LINUX_SETUP.sh
 ```
 
 ...or you can just open the settings files. They are found here:
@@ -67,7 +67,7 @@ https://demondice.bandcamp.com/album/shut-up-get-happy
 Once those two/three things are done, all you need to do is: 
 
 ```bash
-bash ./START_DOWNLOADING.sh
+bash ./LINUX_START_DOWNLOADING.sh
 ```
 
 If everything is done right, it should just start doing it for you.
