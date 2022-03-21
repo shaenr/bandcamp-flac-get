@@ -132,3 +132,5 @@ dmypy.json
 .idea/
 zips/*
 ./src/geckodriver.log
+build/*
+dist/*

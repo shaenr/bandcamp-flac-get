@@ -1,14 +1,12 @@
-from bcfg import bcfg
-from bcfg import settings
+from bcfg import bcfg, settings
 
 import sys
 import logging
 from argparse import Namespace
 from pathlib import Path
-from cli import get_argv
+from bcfg.cli import get_argv
 from shaen_logger import slog
-from shaen_logger.log import set_log_level
-from constants import REQ_PY_VER
+from bcfg.constants import REQ_PY_VER
 
 
 # def get_log_level(ns: Namespace):
@@ -37,7 +35,7 @@ def main(argv: Namespace):
 
     slog.info("=" * 20)
     slog.info("STARTING NEW EXECUTION...")
-    slog.info("Running main.py")
+    slog.info("Running bandcamp_flac_get.py")
     slog.info("=" * 20)
     slog.debug(f"slog: handlers={slog.handlers}, level={slog.level}")
 
