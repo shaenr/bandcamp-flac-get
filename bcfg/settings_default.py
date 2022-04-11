@@ -1,6 +1,6 @@
 from pathlib import Path
 
-PROJECT_PATH = Path(r".\..\bandcamp-flac-get").resolve()
+PROJECT_PATH = Path(r"..\..\..\bandcamp-flac-get").resolve()
 # Folder must exist. An absolute path to your download directory
 DOWNLOAD_PATH = PROJECT_PATH / "zips"
 
@@ -14,7 +14,7 @@ BROWSER = "chrome"
 # That path goes here. You can also find paths by right clicking and looking in properties of icons
 # HINT: This probably won't be your path.
 CHROME_BINARY = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-CHROMIUM_BINARY = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+CHROMIUM_BINARY = r"/usr/bin/chromium-browser"
 
 # The path to a txt file where you will list bandcamp album urls to batch download.
 ALBUM_LINKS_TXT = PROJECT_PATH / "album_links.txt"

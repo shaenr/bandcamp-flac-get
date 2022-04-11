@@ -55,5 +55,8 @@ def get_argv():
     parser.add_argument("-t", "--timeout", type=int, default=settings.TIMEOUT_TIME,
                         help="Specify a timeout time in seconds...")
 
+    parser.add_argument("-g", "--gui", action='store_true',
+                        help="Open the GUI to configure default setting.")
+
     return parser.parse_args()
 

@@ -1,4 +1,4 @@
-from bcfg import bcfg, settings
+from bcfg import bcfg_cli, settings
 
 import sys
 import logging
@@ -51,10 +51,9 @@ def main(argv: Namespace):
     settings.ALBUM_LINKS_TXT = argv.input if argv.input else settings.ALBUM_LINKS_TXT
     settings.FORMAT = argv.format if argv.format else settings.FORMAT
     settings.DOWNLOAD_PATH = argv.output if argv.output else settings.DOWNLOAD_PATH
-    bcfg(argv)
+    bcfg_cli(argv)
 
 if __name__ == '__main__':
-    print("dsfasd")
     if sys.version_info < REQ_PY_VER:
         sys.stderr.write(
             f"Use python {REQ_PY_VER[0]}.{REQ_PY_VER[1]} or later to run this "
