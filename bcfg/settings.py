@@ -2,7 +2,7 @@ from pathlib import Path
 
 # Folder must exist. An absolute path to your download directory
 # Leave the r that is before the quotes like r"" -- it's supposed to be there.
-DOWNLOAD_PATH = r"."
+DOWNLOAD_PATH = r"./zips"
 
 # Use "chrome", "chromium", "firefox", "opera", "ie", "edge"
 # I recommend using the most updated version official google chrome or chromium.

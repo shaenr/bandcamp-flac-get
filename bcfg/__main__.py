@@ -227,16 +227,17 @@ def get_albums():
 
 
 def bcfg(argv: Namespace):
-    if argv.chrome:
-        settings.BROWSER = "chrome"
-        settings.CHROME_BINARY = Path(argv.chrome)
-    if argv.chromium:
-        settings.BROWSER = "chromium"
-        settings.CHROMIUM_BINARY = Path(argv.chromium)
-    settings.TIMEOUT_TIME = argv.timeout if argv.timeout else settings.TIMEOUT_TIME
-    settings.ALBUM_LINKS_TXT = argv.input if argv.input else settings.ALBUM_LINKS_TXT
-    settings.FORMAT = argv.format if argv.format else settings.FORMAT
-    settings.DOWNLOAD_PATH = settings.DOWNLOAD_PATH
+    print("test")
+    # if argv.chrome:
+    #     settings.BROWSER = "chrome"
+    #     settings.CHROME_BINARY = Path(argv.chrome)
+    # if argv.chromium:
+    #     settings.BROWSER = "chromium"
+    #     settings.CHROMIUM_BINARY = Path(argv.chromium)
+    # settings.TIMEOUT_TIME = argv.timeout if argv.timeout else settings.TIMEOUT_TIME
+    # settings.ALBUM_LINKS_TXT = argv.input if argv.input else settings.ALBUM_LINKS_TXT
+    # settings.FORMAT = argv.format if argv.format else settings.FORMAT
+    # settings.DOWNLOAD_PATH = argv.output if argv.output else settings.DOWNLOAD_PATH
     sanity_check()
     try:
         get_albums()
@@ -246,5 +247,5 @@ def bcfg(argv: Namespace):
 
 
 if __name__ == "__main__":
-    # bcfg()
+    bcfg()
     pass

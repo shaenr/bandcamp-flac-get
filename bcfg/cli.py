@@ -1,9 +1,21 @@
+import os.path
 from argparse import (
     FileType,
     ArgumentParser,
-    RawDescriptionHelpFormatter
+    RawDescriptionHelpFormatter,
+    ArgumentTypeError
 )
+from pathlib import Path
 from bcfg import settings
+
+
+def validate_output_dir(path):
+    if os.path.isdir(path):
+        return path
+    else:
+        raise ArgumentTypeError(
+            f"output directory: {path} is not a valid directory path."
+        )
 
 
 def get_argv():
@@ -15,11 +27,15 @@ def get_argv():
         formatter_class=RawDescriptionHelpFormatter
     )
 
-    parser.add_argument('--albums-txt',
-                        dest="input",
+    parser.add_argument("-i", "--input",
                         type=FileType('r'),
                         default=settings.ALBUM_LINKS_TXT,
-                        help="Specify a txt file with bandcamp album links to download: one link per line...")
+                        help="Specify a txt as input file with bandcamp album links to download: one link per line...")
+
+    parser.add_argument("-o", "--output",
+                        type=validate_output_dir,
+                        default=settings.DOWNLOAD_PATH,
+                        help="Specify a directory in which to save the zip files scraped from bandcamp.")
 
     # verbosity_group = parser.add_mutually_exclusive_group(required=False)
     # verbosity_group.add_argument("-v", "--verbose", default=2, action="count",
