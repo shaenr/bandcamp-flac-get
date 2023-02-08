@@ -6,7 +6,7 @@ charset-normalizer==2.0.11
 colorama==0.4.4
 configparser==5.2.0
 crayons==0.4.0
-cryptography==36.0.1
+cryptography==39.0.1
 fake-useragent==0.1.11
 h11==0.13.0
 idna==3.3
